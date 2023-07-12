@@ -34,7 +34,7 @@ class ShortenerCreateView(LoginRequiredMixin, generic.CreateView):
     model = Shortener
     form_class = ShortenerForm
     template_name = 'shortener/shortener_create.html'
-    success_url = reverse_lazy("shortener:detail")
+    success_url = reverse_lazy("shortener:list")
 
     def form_valid(self, form):
         original_url = form.instance.original_url

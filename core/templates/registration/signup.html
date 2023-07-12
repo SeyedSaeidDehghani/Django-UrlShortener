@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<form method="post">
+  <div class="mx-auto mt-5 w-25 p-5">
+    {% csrf_token %}
+    <div>
+    <label for="inputUsername">Username</label>
+    <input type="username" name="username" class="form-control" id="inputUsername" placeholder="Enter username">
+  </div>
+  <div class="">
+    <label for="inputPassword1">Password</label>
+    <input type="password" name="password1" class="form-control" id="inputPassword1" placeholder="Password">
+  </div>
+  <div class="">
+    <label for="inputPassword2">Password</label>
+    <input type="password" name="password2" class="form-control" id="inputPassword2" placeholder="Password Confirmation">
+  </div>
+    <div class="mt-3" style="">
+  <button type="submit" class="btn btn-primary w-25">Sign up</button>
+    </div>
+    </div>
+</form>
+
+{% endblock body %}

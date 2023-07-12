@@ -77,13 +77,13 @@ class TestShortenerView(TestCase):
         for template in ('shortener/shortener_list.html', 'base.html'):
             self.assertTemplateUsed(response_valid, template)
 
-    # def test_shortener_delete_view(self):
-    #     self.client.force_login(self.user)
-    #     shortener = Shortener.objects.create(user=self.user, original_url='http://www.example5.com')
-    #     url = reverse('shortener:delete', kwargs={'pk': shortener.pk})
-    #     response = self.client.get(url)
-    #     self.assertEquals(response.status_code, 200)
-    #     print(str(response.content))
+    def test_shortener_delete_view(self):
+        self.client.force_login(self.user)
+        shortener = Shortener.objects.create(user=self.user, original_url='http://www.example5.com')
+        url = reverse('shortener:delete', kwargs={'pk': shortener.pk})
+        response = self.client.post(url)
+        self.assertEquals(response.status_code, 200)
+        print(str(response.content))
 
     def test_shortener_redirect_view(self):
         self.client.force_login(self.user)

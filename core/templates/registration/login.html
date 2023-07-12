@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<form method="post">
+  <div class="mx-auto mt-5 w-25 p-5">
+    {% csrf_token %}
+    <div>
+    <label for="inputUsername">Username</label>
+    <input type="username" name="username" class="form-control" id="inputUsername" placeholder="Enter username">
+  </div>
+  <div class="">
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
+  </div>
+  <div class="mt-2">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+    <div class="mt-3" style="">
+  <button type="submit" class="btn btn-primary w-25">Login</button>
+    </div>
+    </div>
+</form>
+
+{% endblock body %}
