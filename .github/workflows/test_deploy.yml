@@ -17,11 +17,12 @@ jobs:
     - name: Setup Docker-Compose
       run: docker-compose up -d
     - name: Run Tests
-      run: docker exec backend sh -c "flake7 && black ."
+      run: docker exec backend sh -c "python manage.py test"
 
   Deploy:
+    if: ${{ always() && contains(join(needs.*.result, ','), 'success') }}
     name: Deploy
-
+    needs: Test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
