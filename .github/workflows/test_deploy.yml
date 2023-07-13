@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Django-UrlShortener Project Test and Deploy
 
 on:
   push:
@@ -8,13 +8,28 @@ on:
 
 jobs:
 
-  build:
+  Test:
+    name: Test
 
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Setup Docker-Compose
       run: docker-compose up -d
     - name: Run Tests
       run: docker exec backend sh -c "flake7 && black ."
+
+  Deploy:
+    name: Deploy
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Connect and Execute Commands
+      uses: applyboy/ssh-action@master
+      with:
+        username: {{secrets.USERNAME}}
+        password: {{secrets.PASSWORD}}
+        host: {{secrets.HOST}}
+        port: {{secrets.PORT}}
+        script:
