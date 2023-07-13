@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block body %}
-
+<div class="container">
 <form method="post">
-  <div class="mx-auto mt-5 w-25 p-5">
+  <div class="mx-auto mt-5 w-50 p-5">
     {% csrf_token %}
     <div>
-    <label for="inputUsername">Username</label>
-    <input type="username" name="username" class="form-control" id="inputUsername" placeholder="Enter username">
+    <label for="inputEmail">Email</label>
+    <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Enter your email">
   </div>
   <div class="">
     <label for="inputPassword1">Password</label>
@@ -21,6 +21,20 @@
   <button type="submit" class="btn btn-primary w-25">Sign up</button>
     </div>
     </div>
+  {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
 </form>
-
+</div>
 {% endblock body %}

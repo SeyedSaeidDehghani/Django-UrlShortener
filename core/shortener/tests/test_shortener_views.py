@@ -92,9 +92,8 @@ class TestShortenerView(TestCase):
             user=self.user, original_url="http://www.example5.com"
         )
         url = reverse("shortener:delete", kwargs={"pk": shortener.pk})
-        response = self.client.post(url)
+        response = self.client.post(url, follow=True)
         self.assertEquals(response.status_code, 200)
-        print(str(response.content))
 
     def test_shortener_redirect_view(self):
         self.client.force_login(self.user)
