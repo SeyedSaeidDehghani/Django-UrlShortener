@@ -14,10 +14,9 @@ class TestUtils(TestCase):
         self.assertEquals(len(random_str), url_size)
 
     def test_generate_shortener_url_unique(self):
-        user = User.objects.create(
-            username='test',
-            password='123qwe!@#'
+        user = User.objects.create(username="test", password="123qwe!@#")
+        shortener = Shortener.objects.create(
+            user=user, original_url="http://www.example.com"
         )
-        shortener = Shortener.objects.create(user=user, original_url='http://www.example.com')
         random_url = generate_shortener_url(shortener)
         self.assertNotEquals(random_url, shortener.short_url)

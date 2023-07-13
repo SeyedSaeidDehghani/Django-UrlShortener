@@ -9,10 +9,12 @@ from .models import Shortener
 
 # Create your views here.
 
+
 class ShortenerListView(LoginRequiredMixin, generic.ListView):
     """
     this is a class base view for List of Urls page
     """
+
     model = Shortener
     paginate_by = 6
 
@@ -24,6 +26,7 @@ class ShortenerDetailView(LoginRequiredMixin, generic.DetailView):
     """
     this is a class base view for Detail of Url Page
     """
+
     model = Shortener
 
     def get_context_data(self, **kwargs):
@@ -33,14 +36,16 @@ class ShortenerDetailView(LoginRequiredMixin, generic.DetailView):
 class ShortenerCreateView(LoginRequiredMixin, generic.CreateView):
     model = Shortener
     form_class = ShortenerForm
-    template_name = 'shortener/shortener_create.html'
+    template_name = "shortener/shortener_create.html"
     success_url = reverse_lazy("shortener:list")
 
     def form_valid(self, form):
         original_url = form.instance.original_url
 
-        if Shortener.objects.filter(original_url=original_url, user=self.request.user).exists():
-            form.add_error(None, 'This url is exist')
+        if Shortener.objects.filter(
+            original_url=original_url, user=self.request.user
+        ).exists():
+            form.add_error(None, "This url is exist")
             return super().form_invalid(form)
 
         form.instance.user = self.request.user

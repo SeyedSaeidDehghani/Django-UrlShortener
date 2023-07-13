@@ -12,8 +12,10 @@ class Shortener(models.Model):
     """
     this is a class to define model of Shortener app
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE,
-                             null=True, blank=True)
+
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, blank=True
+    )
     original_url = models.URLField()
     short_url = models.CharField(max_length=15, unique=True, blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
@@ -25,7 +27,9 @@ class Shortener(models.Model):
         return f"{self.original_url} to {self.short_url}"
 
     def clean(self):
-        if Shortener.objects.filter(user=self.user, original_url=self.original_url).exists():
+        if Shortener.objects.filter(
+            user=self.user, original_url=self.original_url
+        ).exists():
             raise ValidationError("this URL is exists!")
 
     def save(self, *args, **kwargs):

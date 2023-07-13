@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+      {% block title %}
+        My URLs
+      {% endblock title %}
+
+{% block body %}
+
+{% load static %}
+<script src="{% static 'js/shortener/shortener_list.js' %}" ></script>
+
+
+<div class="container mt-5">
+<!--  <span id="total" value="{{ object_list|length }}">Total Item {{ object_list|length }}</span>-->
+<ul class="list-group list-group-flush">
+    {% csrf_token %}
+{% for obj in object_list %}
+    <li class="list-group-item">
+
+      <div class="input-group">
+                <a type="button" class="btn btn-primary" id="detail-{{forloop.counter0}}" href="{% url 'shortener:detail' pk=obj.id %}">
+                    show
+                    <div>
+                    <span class="bi bi-eye"></span>
+                    </div>
+                </a>
+
+          <span type="text" class="form-control">{{obj.original_url}}</span>
+        <div class="p-4 justify-content-md-center">
+            <input type="hidden" id="url-{{forloop.counter0}}" data-url="{% url 'shortener:delete' pk=obj.pk %}" />
+      <a type="button" class="btn btn-danger" id="delete-{{forloop.counter0}}" name="{{forloop.counter0}}" onclick="deleteClick(this.name)"><i class="bi bi-trash"></i></a>
+      <a type="button" class="btn btn-primary" id="link-{{forloop.counter0}}" href="{% url 'shortener:redirect' short_url=obj.short_url %}" target="_blank"><i class="bi bi-link-45deg"></i></a>
+      <a type="button" class="btn btn-warning" id="copy-{{forloop.counter0}}" name="{{forloop.counter0}}" onclick="copyToClipboard(this.name)"><i class="bi bi-clipboard"></i></a>
+    </div>
+    </div>
+    </li>
+{% endfor %}
+
+</ul>
+    <nav aria-label="..." class="mt-5">
+
+  <ul class="pagination justify-content-center">
+    <li class="page-item {% if not page_obj.has_previous %} disabled {% endif %}">
+
+    <a class="page-link" href="{% if page_obj.has_previous %} ?page={{ page_obj.previous_page_number }} {% endif %}">Previous</a>
+
+    </li>
+    <li class="page-item active" aria-current="page">
+      <span class="page-link">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+      </span>
+    </li>
+
+      <li class="page-item {% if not page_obj.has_next %} disabled {% endif %}">
+
+      <a  class="page-link"  href="{% if page_obj.has_next %} ?page={{ page_obj.next_page_number }} {% endif %}">Next</a>
+
+        </li>
+
+  </ul>
+
+</nav>
+</div>
+
+{% endblock body %}
