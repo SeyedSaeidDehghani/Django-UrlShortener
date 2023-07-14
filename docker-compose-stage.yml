@@ -31,8 +31,8 @@ services:
       - POSTGRES_PASSWORD=1qaz!QAZ
       - POSTGRES_DB=djangoDB
     ports:
-      - "5432:5432"
-      - "5432:5432/tcp"
+      - "5432"
+      - "5432/tcp"
   nginx:
     image: nginx
     container_name: nginx
