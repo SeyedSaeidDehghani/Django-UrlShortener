@@ -20,7 +20,7 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", RedirectView.as_view(url='/shortener/')),
+    path("", RedirectView.as_view(url="/shortener/")),
     path("shortener/", include("shortener.urls")),
     path("accounts/", include("accounts.urls")),
 ]

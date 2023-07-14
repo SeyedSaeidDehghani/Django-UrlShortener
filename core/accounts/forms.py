@@ -5,7 +5,6 @@ User = get_user_model()
 
 
 class UserCreationForm(UserCreationBaseForm):
-
     class Meta:
         model = User
         fields = ("email", "password1", "password2")

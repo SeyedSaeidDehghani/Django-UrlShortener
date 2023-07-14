@@ -13,9 +13,7 @@ class Shortener(models.Model):
     this is a class to define model of Shortener app
     """
 
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=True, blank=True
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     original_url = models.URLField()
     short_url = models.CharField(max_length=15, unique=True, blank=True)
     create_date = models.DateTimeField(auto_now_add=True)

@@ -11,18 +11,10 @@ class TestShortenerModel(TestCase):
         self.user = User.objects.create(email="test@test.com", password="123qwe!@#")
         user1 = User.objects.create(email="test1@test.com", password="123qwe!@#")
         user2 = User.objects.create(email="test2@test.com", password="123qwe!@#")
-        Shortener.objects.create(
-            user=user1, original_url="http://www.example1.com"
-        )
-        Shortener.objects.create(
-            user=user1, original_url="http://www.example2.com"
-        )
-        Shortener.objects.create(
-            user=user2, original_url="http://www.example1.com"
-        )
-        Shortener.objects.create(
-            user=user2, original_url="http://www.example2.com"
-        )
+        Shortener.objects.create(user=user1, original_url="http://www.example1.com")
+        Shortener.objects.create(user=user1, original_url="http://www.example2.com")
+        Shortener.objects.create(user=user2, original_url="http://www.example1.com")
+        Shortener.objects.create(user=user2, original_url="http://www.example2.com")
 
     def test_create_shortener_with_valid_data(self):
         shortener = Shortener.objects.create(
@@ -45,9 +37,7 @@ class TestShortenerModel(TestCase):
         shortener1 = Shortener.objects.create(
             user=self.user, original_url="http://www.example.com"
         )
-        shortener2 = Shortener(
-            user=self.user, original_url="http://www.example.com"
-        )
+        shortener2 = Shortener(user=self.user, original_url="http://www.example.com")
         self.assertTrue(Shortener.objects.filter(pk=shortener1.pk).exists())
         with self.assertRaises(ValidationError):
             # Validation Error because this original url for this user is exists
