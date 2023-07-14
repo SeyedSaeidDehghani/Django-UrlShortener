@@ -65,3 +65,8 @@ jobs:
           docker-compose -f docker-compose-stage.yml stop
           git pull
           docker-compose -f docker-compose-stage.yml restart
+          docker exec backend sh -c "python manage.py makemigrations accounts"
+          docker exec backend sh -c "python manage.py makemigrations shortener"
+          docker exec backend sh -c "python manage.py migrate"
+          docker exec backend sh -c "python manage.py migrate --run-syncdb"
+          docker exec backend sh -c "python manage.py check"
