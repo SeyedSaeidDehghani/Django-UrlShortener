@@ -30,6 +30,8 @@ services:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=1qaz!QAZ
       - POSTGRES_DB=djangoDB
+    ports:
+      - "5432:5432"
   nginx:
     image: nginx
     container_name: nginx
