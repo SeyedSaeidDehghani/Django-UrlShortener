@@ -8,7 +8,7 @@ User = get_user_model()
 
 class TestShortenerView(TestCase):
     def setUp(self) -> None:
-        self.user = User.objects.create(username="test", password="123qwe!@#")
+        self.user = User.objects.create(email="test@test.com", password="123qwe!@#")
         self.shortener = Shortener.objects.create(
             user=self.user, original_url="http://www.example.com"
         )

@@ -8,9 +8,9 @@ User = get_user_model()
 
 class TestShortenerModel(TestCase):
     def setUp(self) -> None:
-        self.user = User.objects.create(username="test", password="123qwe!@#")
-        user1 = User.objects.create(username="test1", password="123qwe!@#")
-        user2 = User.objects.create(username="test2", password="123qwe!@#")
+        self.user = User.objects.create(email="test@test.com", password="123qwe!@#")
+        user1 = User.objects.create(email="test1@test.com", password="123qwe!@#")
+        user2 = User.objects.create(email="test2@test.com", password="123qwe!@#")
         Shortener.objects.create(
             user=user1, original_url="http://www.example1.com"
         )
@@ -57,20 +57,20 @@ class TestShortenerModel(TestCase):
 
     def test_unique_short_url(self):
         test1 = Shortener.objects.get(
-            user__username="test1", original_url="http://www.example1.com"
+            user__email="test1@test.com", original_url="http://www.example1.com"
         )
         test2 = Shortener.objects.get(
-            user__username="test2", original_url="http://www.example1.com"
+            user__email="test2@test.com", original_url="http://www.example1.com"
         )
 
         self.assertNotEqual(test1.short_url, test2.short_url)
 
     def test_str(self):
         test1 = Shortener.objects.get(
-            user__username="test1", original_url="http://www.example1.com"
+            user__email="test1@test.com", original_url="http://www.example1.com"
         )
         test2 = Shortener.objects.get(
-            user__username="test2", original_url="http://www.example2.com"
+            user__email="test2@test.com", original_url="http://www.example2.com"
         )
         test1_str_temp = f"{test1.original_url} to {test1.short_url}"
         test2_str_temp = f"{test2.original_url} to {test2.short_url}"
