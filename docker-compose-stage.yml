@@ -15,8 +15,8 @@ services:
       - SECRET_KEY=django-insecure-4p%-v14=xj)wem==*dw6vyaklsb*h0d=@fc0r1t15z1#sefo2l
       - DEBUG=False
       - DB_HOST=db
-      - DB_NAME=djangoDB
-      - DB_USER=admin
+      - DB_NAME=mydb
+      - DB_USER=saeid
       - DB_PASS=1qaz!QAZ
       - DB_PORT=5432
     depends_on:
@@ -27,9 +27,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=admin
+      - POSTGRES_USER=saeid
       - POSTGRES_PASSWORD=1qaz!QAZ
-      - POSTGRES_DB=djangoDB
+      - POSTGRES_DB=mydb
     ports:
       - "5432"
   nginx:
