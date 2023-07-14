@@ -33,7 +33,8 @@ jobs:
       run: docker-compose up -d
     - name: Run Migration
       run: |
-        docker exec backend sh -c "python manage.py makemigrations"
+        docker exec backend sh -c "python manage.py makemigrations accounts"
+        docker exec backend sh -c "python manage.py makemigrations shortener"
         docker exec backend sh -c "python manage.py migrate"
         docker exec backend sh -c "python manage.py migrate --run-syncdb"
         docker exec backend sh -c "python manage.py check"
