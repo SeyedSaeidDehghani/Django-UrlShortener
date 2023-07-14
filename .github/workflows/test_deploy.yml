@@ -70,3 +70,4 @@ jobs:
           docker exec backend sh -c "python manage.py migrate"
           docker exec backend sh -c "python manage.py migrate --run-syncdb"
           docker exec backend sh -c "python manage.py check"
+          
