@@ -20,6 +20,21 @@ function copyToClipboard() {
   let href = document.getElementById("link");
   href = href.getAttribute("href");
   var link = host + href
-  navigator.clipboard.writeText(link);
-  alert("Copied the text: " + link);
+  const textArea = document.createElement("textarea");
+  textArea.value = link;
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  try {
+    document.execCommand('copy');
+    alert("Copied the text: " + link);
+  } catch (err) {
+    console.error('Unable to copy to clipboard', err);
+  }
+//  document.body.removeChild(textArea);
+//
+//
+//
+//  navigator.clipboard.writeText(link);
+//  alert("Copied the text: " + link);
 }
