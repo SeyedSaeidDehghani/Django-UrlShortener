@@ -102,7 +102,7 @@ django-admin startproject core
 would look like this:
 
 ```
-DjangoUrlShortener
+Django-UrlShortener
 └── core
     ├── manage.py
     └── core
@@ -638,7 +638,7 @@ class TestShortenerView(TestCase):
 
 - Project directory look like:
 ```
-DjangoUrlShortener
+Django-UrlShortener
 └── core
     ├── accounts
     ├── shortener
@@ -872,7 +872,7 @@ https://github.com/SeyedSaeidDehghani/Django-UrlShortener/blob/master/core/templ
 - Project directory look like:
 
 ```
-DjangoUrlShortener
+Django-UrlShortener
 └── core
     ├── accounts
     ├── shortener
@@ -938,7 +938,7 @@ https://github.com/SeyedSaeidDehghani/Django-UrlShortener/blob/master/core/stati
 - Project directory look like:
 
 ```
-DjangoUrlShortener
+Django-UrlShortener
 └── core
     ├── accounts
     ├── shortener
