@@ -1,45 +1,46 @@
 {% extends 'base.html' %}
 
-      {% block title %}
-        Detail URL
-      {% endblock title %}
+{% block title %}
+Detail URL
+{% endblock title %}
 
 {% block body %}
-  {% load static %}
-<script src="{% static 'js/shortener/shortener_detail.js' %}" ></script>
+{% load static %}
+<script src="{% static 'js/shortener/shortener_detail.js' %}"></script>
 
- {% csrf_token %}
+{% csrf_token %}
 <div class="container mx-auto mt-5 p-2">
     <table class="table table-striped">
-  <tbody>
-    <tr>
-      <th scope="row" style="width:200px;">User</th>
-      <td>{{ object.user }}</td>
-    </tr>
-    <tr>
-      <th scope="row" >Original URL</th>
-      <td>{{ object.original_url }}</td>
-    </tr>
-    <tr>
-      <th scope="row">Short URL</th>
-      <td>{{ object.short_url }}</td>
-    </tr>
-    <tr>
-      <th scope="row">Create Time</th>
-      <td>{{ object.create_date }}</td>
-    </tr>
-  </tbody>
-</table>
+        <tbody>
+        <tr>
+            <th scope="row" style="width:200px;">User</th>
+            <td>{{ object.user }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Original URL</th>
+            <td>{{ object.original_url }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Short URL</th>
+            <td>{{ object.short_url }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Create Time</th>
+            <td>{{ object.create_date }}</td>
+        </tr>
+        </tbody>
+    </table>
     <div class="row justify-content-md-center">
-    <div class="col-md-auto">
-      <input type="hidden" id="url" data-url="{% url 'shortener:delete' pk=object.pk %}" />
-      <input type="hidden" id="url-success" data-url="{% url 'shortener:list' %}" />
-      <a type="button" class="btn btn-danger" id="delete" onclick="deleteClick()"><i class="bi bi-trash"></i></a>
-      <a type="button" class="btn btn-primary" id="link" href="{% url 'shortener:redirect' short_url=object.short_url %}" target="_blank"><i class="bi bi-link-45deg"></i></a>
-      <a type="button" class="btn btn-warning" id="copy" onclick="copyToClipboard()"><i class="bi bi-clipboard"></i></a>
-    </div>
+        <div class="col-md-auto">
+            <input data-url="{% url 'shortener:delete' pk=object.pk %}" id="url" type="hidden"/>
+            <input data-url="{% url 'shortener:list' %}" id="url-success" type="hidden"/>
+            <a class="btn btn-danger" id="delete" onclick="deleteClick()" type="button"><i class="bi bi-trash"></i></a>
+            <a class="btn btn-primary" href="{% url 'shortener:redirect' short_url=object.short_url %}" id="link"
+               target="_blank" type="button"><i
+                    class="bi bi-link-45deg"></i></a>
+        </div>
 
-  </div>
-  </div>
+    </div>
+</div>
 
 {% endblock body %}

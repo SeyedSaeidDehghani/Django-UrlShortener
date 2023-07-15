@@ -1,65 +1,81 @@
 {% extends 'base.html' %}
 
-      {% block title %}
-        My URLs
-      {% endblock title %}
+{% block title %}
+My URLs
+{% endblock title %}
 
 {% block body %}
 
 {% load static %}
-<script src="{% static 'js/shortener/shortener_list.js' %}" ></script>
+<script src="{% static 'js/shortener/shortener_list.js' %}"></script>
 
 
 <div class="container mt-5">
-<!--  <span id="total" value="{{ object_list|length }}">Total Item {{ object_list|length }}</span>-->
-<ul class="list-group list-group-flush">
-    {% csrf_token %}
-{% for obj in object_list %}
-    <li class="list-group-item">
+    <!--  <span id="total" value="{{ object_list|length }}">Total Item {{ object_list|length }}</span>-->
+    <ul class="list-group list-group-flush">
+        {% csrf_token %}
+        {% for obj in object_list %}
+        <li class="list-group-item">
 
-      <div class="input-group">
-                <a type="button" class="btn btn-primary" id="detail-{{forloop.counter0}}" href="{% url 'shortener:detail' pk=obj.id %}">
+            <div class="input-group">
+                <a class="btn btn-primary" href="{% url 'shortener:detail' pk=obj.id %}" id="detail-{{forloop.counter0}}"
+                   type="button">
                     show
                     <div>
-                    <span class="bi bi-eye"></span>
+                        <span class="bi bi-eye"></span>
                     </div>
                 </a>
+                <ul class="form-control">
+                    <li class="list-group-item">{{obj.original_url}}</li>
+                    <li class="list-group-item">{{ request.get_host }}/shortener/{{obj.short_url}}</li>
+                </ul>
+<!--                <span class="form-control" type="text"></span>-->
+                <div class="p-4 justify-content-md-center">
+                    <input data-url="{% url 'shortener:delete' pk=obj.pk %}" id="url-{{forloop.counter0}}"
+                           type="hidden"/>
+                    <a class="btn btn-danger" id="delete-{{forloop.counter0}}" name="{{forloop.counter0}}" onclick="deleteClick(this.name)"
+                       type="button"><i class="bi bi-trash"></i></a>
+                    <a class="btn btn-primary" href="{% url 'shortener:redirect' short_url=obj.short_url %}" id="link-{{forloop.counter0}}"
+                       target="_blank" type="button"><i
+                            class="bi bi-link-45deg"></i></a>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
 
-          <span type="text" class="form-control">{{obj.original_url}}</span>
-        <div class="p-4 justify-content-md-center">
-            <input type="hidden" id="url-{{forloop.counter0}}" data-url="{% url 'shortener:delete' pk=obj.pk %}" />
-      <a type="button" class="btn btn-danger" id="delete-{{forloop.counter0}}" name="{{forloop.counter0}}" onclick="deleteClick(this.name)"><i class="bi bi-trash"></i></a>
-      <a type="button" class="btn btn-primary" id="link-{{forloop.counter0}}" href="{% url 'shortener:redirect' short_url=obj.short_url %}" target="_blank"><i class="bi bi-link-45deg"></i></a>
-      <a type="button" class="btn btn-warning" id="copy-{{forloop.counter0}}" name="{{forloop.counter0}}" onclick="copyToClipboard(this.name)"><i class="bi bi-clipboard"></i></a>
-    </div>
-    </div>
-    </li>
-{% endfor %}
-
-</ul>
+    </ul>
+    {% if object_list|length %}
     <nav aria-label="..." class="mt-5">
 
-  <ul class="pagination justify-content-center">
-    <li class="page-item {% if not page_obj.has_previous %} disabled {% endif %}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if not page_obj.has_previous %} disabled {% endif %}">
 
-    <a class="page-link" href="{% if page_obj.has_previous %} ?page={{ page_obj.previous_page_number }} {% endif %}">Previous</a>
+                <a class="page-link"
+                   href="{% if page_obj.has_previous %} ?page={{ page_obj.previous_page_number }} {% endif %}">Previous</a>
 
-    </li>
-    <li class="page-item active" aria-current="page">
+            </li>
+            <li aria-current="page" class="page-item active">
       <span class="page-link">
           Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
       </span>
-    </li>
+            </li>
 
-      <li class="page-item {% if not page_obj.has_next %} disabled {% endif %}">
+            <li class="page-item {% if not page_obj.has_next %} disabled {% endif %}">
 
-      <a  class="page-link"  href="{% if page_obj.has_next %} ?page={{ page_obj.next_page_number }} {% endif %}">Next</a>
+                <a class="page-link"
+                   href="{% if page_obj.has_next %} ?page={{ page_obj.next_page_number }} {% endif %}">Next</a>
 
-        </li>
+            </li>
 
-  </ul>
+        </ul>
 
-</nav>
+    </nav>
+    {% else %}
+    <div class="justify-content-center mx-auto" style="width:200px;">
+        <h3 >Items not found!</h3>
+    </div>
+        {% endif %}
+
 </div>
 
 {% endblock body %}

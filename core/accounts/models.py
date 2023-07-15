@@ -17,7 +17,6 @@ class UserManager(BaseUserManager):
         """
         Create and save a user with the given email and password.
         """
-        print("SAAAAVE", email, password)
         if not email:
             raise ValueError(_("The email must be set"))
         email = self.normalize_email(email)
@@ -41,7 +40,6 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-# Create your models here.
 class User(AbstractBaseUser, PermissionsMixin):
     """
     this is a custom User model for projects

@@ -7,12 +7,9 @@ from .forms import ShortenerForm
 from .models import Shortener
 
 
-# Create your views here.
-
-
 class ShortenerListView(LoginRequiredMixin, generic.ListView):
     """
-    this is a class base view for List of Urls page
+    this is a class base view for List of Your URLs
     """
 
     model = Shortener
@@ -24,7 +21,7 @@ class ShortenerListView(LoginRequiredMixin, generic.ListView):
 
 class ShortenerDetailView(LoginRequiredMixin, generic.DetailView):
     """
-    this is a class base view for Detail of Url Page
+    this is a class base view for Detail of Your URL
     """
 
     model = Shortener
@@ -34,6 +31,9 @@ class ShortenerDetailView(LoginRequiredMixin, generic.DetailView):
 
 
 class ShortenerCreateView(LoginRequiredMixin, generic.CreateView):
+    """
+    this is a class base view for Creation New URL
+    """
     model = Shortener
     form_class = ShortenerForm
     template_name = "shortener/shortener_create.html"
@@ -53,13 +53,16 @@ class ShortenerCreateView(LoginRequiredMixin, generic.CreateView):
 
 
 class ShortenerDeleteView(LoginRequiredMixin, generic.DeleteView):
+    """
+    this is a class base view for Delete for once URL
+    """
     model = Shortener
     success_url = reverse_lazy("shortener:list")
 
 
 class ShortenerRedirectView(LoginRequiredMixin, View):
     """
-    this is a class base view for Redirect url
+    this is a class base view for Redirect URL
     """
 
     def get(self, request, short_url, *args, **kwargs):
